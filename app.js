@@ -6,7 +6,7 @@ const fs = require('fs')
 
 app.use(bodyParse.urlencoded({ extended: true }))
 
-mongoose.connect(`${fs.readFileSync('.connection',"utf-8").split("<password>").join(fs.readFileSync(".env","utf-8"))}`)
+mongoose.connect(`${fs.readFileSync('.connection',"utf-8").split("<password>").join(fs.readFileSync(".env","utf-8"))}` || process.env.CONNECTION)
 
 const Schema = {
     text_note: String
@@ -40,5 +40,5 @@ app.post("/", (req, res) => {
 })
 
 app.listen(fs.readFileSync('.port',"utf-8") || process.env.PORT, () => {
-    console.log("listening on port 3000")
+    console.log(`Listening on PORT ${fs.readFileSync('.port',"utf-8") || process.env.PORT}`)
 })
